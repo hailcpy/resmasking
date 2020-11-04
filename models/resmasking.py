@@ -48,18 +48,24 @@ class ResMasking(ResNet):
 
     def forward(self, x):  # 224 
         x = self.conv1(x)  # 112
+        print(x.shape)
         x = self.bn1(x)
         x = self.relu(x)
         x = self.maxpool(x)  # 56
+        print(x.shape)
 
         x = self.layer1(x)  # 56 
+        print(x.shape)
         m = self.mask1(x)
         x = x * (1 + m)
+        print(x.shape)
         # x = x * m
 
         x = self.layer2(x)  # 28
+        print(x.shape)
         m = self.mask2(x)
         x = x * (1 + m)
+        print(x.shape)
         # x = x * m
 
         x = self.layer3(x)  # 14
@@ -68,8 +74,10 @@ class ResMasking(ResNet):
         # x = x * m
 
         x = self.layer4(x)  # 7
+        print(x.shape)
         m = self.mask4(x)
         x = x * (1 + m)
+        print(x.shape)
         # x = x * m
 
         x = self.avgpool(x)
